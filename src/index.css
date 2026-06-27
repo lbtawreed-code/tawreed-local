@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* PPA brand */
+    --ppa-navy-deep: 218 65% 12%;
+    --ppa-navy: 218 55% 22%;
+    --ppa-blue: 212 100% 36%;
+    --ppa-green: 145 63% 42%;
+    --ppa-red: 0 75% 52%;
+    --ppa-gold: 42 90% 55%;
+
+    --background: 210 40% 98%;
+    --foreground: 218 55% 18%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 218 55% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 218 55% 18%;
+
+    --primary: 212 100% 36%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 218 55% 22%;
+
+    --muted: 210 40% 94%;
+    --muted-foreground: 215 20% 45%;
+
+    --accent: 145 63% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 75% 52%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 88%;
+    --input: 214 32% 88%;
+    --ring: 212 100% 36%;
+
+    --radius: 1rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(var(--ppa-blue)), hsl(var(--ppa-navy)));
+    --gradient-hero: radial-gradient(ellipse at top right, hsl(var(--ppa-blue) / 0.12), transparent 60%),
+                     radial-gradient(ellipse at bottom left, hsl(var(--ppa-green) / 0.10), transparent 60%),
+                     linear-gradient(180deg, hsl(210 50% 98%), hsl(210 40% 95%));
+    --gradient-chat: radial-gradient(ellipse at top, hsl(var(--ppa-blue) / 0.08), transparent 50%),
+                     linear-gradient(180deg, hsl(210 50% 98%), hsl(210 35% 94%));
+
+    --shadow-soft: 0 4px 16px -6px hsl(218 55% 22% / 0.12);
+    --shadow-elegant: 0 18px 50px -18px hsl(218 65% 22% / 0.30);
+    --shadow-glow: 0 0 0 4px hsl(var(--ppa-blue) / 0.18), 0 12px 32px -10px hsl(var(--ppa-blue) / 0.45);
+  }
+
+  * { @apply border-border; }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Plus Jakarta Sans', 'Cairo', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  [dir="rtl"] body, [lang="ar"] {
+    font-family: 'Cairo', 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: 'Space Grotesk', 'Cairo', sans-serif; letter-spacing: -0.02em; }
+  .gradient-primary { background-image: var(--gradient-primary); }
+  .gradient-hero { background-image: var(--gradient-hero); }
+  .gradient-chat { background-image: var(--gradient-chat); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+
+  .glass-panel {
+    background: hsl(0 0% 100% / 0.72);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid hsl(0 0% 100% / 0.6);
+  }
+
+  .cedar-bar {
+    height: 4px;
+    background: linear-gradient(90deg,
+      hsl(var(--ppa-red)) 0%, hsl(var(--ppa-red)) 33%,
+      hsl(var(--ppa-green)) 33%, hsl(var(--ppa-green)) 66%,
+      hsl(var(--ppa-blue)) 66%, hsl(var(--ppa-blue)) 100%);
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(60px);
+    opacity: 0.35;
+    animation: float 12s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -30px) scale(1.05); }
+  }
+
+  .fade-in { animation: fadeIn 0.5s ease-out both; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .typing-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 9999px;
+    background: hsl(var(--ppa-blue));
+    animation: bounce 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes bounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+    40% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  .pulse-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+    border: 2px solid hsl(var(--ppa-red) / 0.5);
+    animation: pulseRing 1.4s ease-out infinite;
+  }
+  @keyframes pulseRing {
+    0% { transform: scale(0.95); opacity: 1; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
+}
+
+@layer components {
+  .chat-prose h1,
+  .chat-prose h2,
+  .chat-prose h3,
+  .chat-prose h4,
+  .chat-prose h5,
+  .chat-prose h6,
+  .chat-prose strong {
+    font-weight: 800 !important;
+    color: hsl(217 91% 40%);
+  }
+
+  .chat-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid hsl(var(--border));
+  }
+  .chat-prose thead {
+    background: hsl(var(--ppa-navy));
+  }
+  .chat-prose thead th {
+    color: #fff;
+    font-weight: 700;
+    text-align: center !important;
+    vertical-align: middle;
+    padding: 0.6rem 0.75rem;
+    border-inline-end: 1px solid hsl(var(--ppa-navy-deep));
+  }
+  .chat-prose thead th:last-child { border-inline-end: 0; }
+  .chat-prose tbody td,
+  .chat-prose tbody th {
+    text-align: center !important;
+    vertical-align: middle;
+    padding: 0.55rem 0.75rem;
+    border-top: 1px solid hsl(var(--border));
+    border-inline-end: 1px solid hsl(var(--border));
+  }
+  .chat-prose tbody td *,
+  .chat-prose tbody th * {
+    text-align: center !important;
+  }
+  .chat-prose tbody td:last-child { border-inline-end: 0; }
+  .chat-prose tbody tr:nth-child(even) { background: hsl(var(--secondary) / 0.5); }
+
+  .logo-3d {
+    filter:
+      drop-shadow(0 1px 0 hsl(0 0% 100% / 0.7))
+      drop-shadow(0 6px 10px hsl(218 65% 12% / 0.28))
+      drop-shadow(0 18px 30px hsl(218 65% 12% / 0.22));
+    transform: perspective(900px) rotateX(6deg) rotateY(-4deg);
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+  .logo-3d:hover {
+    transform: perspective(900px) rotateX(2deg) rotateY(0deg) translateY(-2px);
+    filter:
+      drop-shadow(0 1px 0 hsl(0 0% 100% / 0.8))
+      drop-shadow(0 10px 14px hsl(218 65% 12% / 0.32))
+      drop-shadow(0 24px 40px hsl(218 65% 12% / 0.26));
+  }
+
+}
